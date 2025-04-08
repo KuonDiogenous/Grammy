@@ -1,0 +1,161 @@
+teiheader{
+    display:none;
+}
+
+tei {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+}
+
+event[type="ceremony"]{
+    display:block;
+    content:attr(when);
+}
+
+listEvent[type="category"] event{
+    display:block;
+    border: black solid 2px;
+    margin: 5% 0;
+    padding: 5px 5px 20px  5px;
+}
+
+listEvent[type="category"] event listPerson:after{
+    content: "Cliquer ici puis appuyer sur entrer pour ajouter un nouveau <person> ou <org>"
+}
+
+eventName{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align : center;   
+    font-size: 20px;
+    display: block;
+    font-weight: bold;
+    text-decoration-line: underline;
+    /* content: attr(oxy_patch(ancestor::event[@when])); */
+}
+
+person, org{
+    margin: 5% 0;
+    display:block;
+}
+
+event label{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align : center;   
+    font-size: 15px;
+    display: block;
+    text-decoration-line: underline;
+    /* content: attr(oxy_patch(ancestor::event[@when])); */
+}
+
+
+state+trait:before{
+    content: 
+    oxy_editor(
+    type, combo,
+    edit, "@type"
+    )
+    
+    " : "
+    oxy_editor(
+    type, combo,
+    edit, "@subtype"
+    )
+    "\A";
+}
+
+bibl+trait:before{
+    content: 
+    oxy_editor(
+    type, combo,
+    edit, "@type"
+    )
+    
+    " : "
+    oxy_editor(
+    type, combo,
+    edit, "@subtype"
+    )
+    "\A";
+}
+
+gender+trait:before{
+    content: 
+    oxy_editor(
+    type, combo,
+    edit, "@type"
+    )
+    
+    " : "
+    oxy_editor(
+    type, combo,
+    edit, "@subtype"
+    )
+    "\A";
+}
+
+gender:before{
+    content: "Genre : "
+    oxy_editor(
+    type, combo,
+    edit, "@value"
+    )
+    "\A";
+}
+
+
+bibl{
+    content: "Title of the " 
+    oxy_editor(
+    type, combo,
+    edit, "@type"
+    )
+    " : "
+    ;
+}
+
+title:after{
+    content: "[Entrer le titre ici]" "\A";
+    
+    color:silver;
+}
+
+nationality:before{
+    content: "Nationalité : "
+    oxy_editor(
+    type, combo,
+    edit, "value",
+    editable, false
+    )
+    "\A";
+}
+
+nickname{
+    content: "Nom de scène :"
+}
+
+state:before{
+    content: "Résultat : "
+    oxy_editor(
+    type, combo,
+    edit, "@type"
+    )
+    "\A";
+}
+
+birth{
+    content: "Date de naissance : " "[Entrer la date ici]" "\A";
+}
+
+birth:after{
+    content:"\A" " ;
+    color:silver;
+}
+
+org:after, person:after{
+    content: "\A" oxy_editor(
+            type, buttonGroup,
+            label, 'Ajouter un <person> ou un <org>',
+            actionIDs, "person,org",
+            actionStyle, "both");
+}
